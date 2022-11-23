@@ -32,105 +32,60 @@ Solved in Python
 s = "LVIII"
 
 
-def romanNumerals(numeral):
-    
-    ## I hate this function. Just a bunch of nested if/elif/else statements, but it works.
-    
-    conversionList = []
-    x = 0
-    
-    for i in range(len(numeral)):
+class Solution(object):
+    def romanToInt(self, numeral):
         
-        if i == len(numeral)-1:
+        x = 0
+
+        for i in range(len(numeral)):
+
+            if i == len(numeral)-1:
+                if numeral[i] == 'I':
+ 
+                    x += 1
+                elif numeral[i] == 'V':
+
+                    x += 5
+                elif numeral[i] == 'X':
+ 
+                    x += 10
+                elif numeral[i] == 'L':
+                    x += 50
+                elif numeral[i] == 'C':
+                    x += 100
+                elif numeral[i] == 'D': 
+                    x += 500
+                elif numeral[i] == 'M': 
+                    x += 1000
+
+                return x               
+
             if numeral[i] == 'I':
-                conversionList.append(1)
-                x += 1
-            elif numeral[i] == 'V':
-                conversionList.append(5)
+                if numeral[i+1] == 'V' or numeral[i+1] == 'X':
+                    x -= 1
+                else:
+                    x += 1
+
+            if numeral[i] == 'V':
                 x += 5
-            elif numeral[i] == 'X':
-                conversionList.append(10)
-                x += 10
-            elif numeral[i] == 'L':
-                conversionList.append(50)
-                x += 50
-            elif numeral[i] == 'C':
-                conversionList.append(100)
-                x += 100
-            elif numeral[i] == 'D':
-                conversionList.append(500) 
+
+            if numeral[i] == 'X':
+                if numeral[i+1] == 'L' or numeral[i+1] == 'C':
+                    x -= 10
+                else:
+                    x += 10
+
+            if numeral[i] == 'L':
+                x +=  50
+
+            if numeral[i] == 'C':
+                if numeral[i+1] == 'D' or numeral[i+1] == 'M':
+                    x -= 100
+                else:
+                    x += 100
+
+            if numeral[i] == 'D':
                 x += 500
-            elif numeral[i] == 'M':
-                conversionList.append(1000)  
+
+            if numeral[i] == 'M':
                 x += 1000
-                
-            return x               
-                
-        if numeral[i] == 'I':
-            if numeral[i+1] == 'V' or numeral[i+1] == 'X':
-                conversionList.append(-1)
-                x -= 1
-            else:
-                conversionList.append(1)
-                x += 1
-           
-        if numeral[i] == 'V':
-            conversionList.append(5)  
-            x += 5
-            
-        if numeral[i] == 'X':
-            if numeral[i+1] == 'L' or numeral[i+1] == 'C':
-                conversionList.append(-10)
-                x -= 10
-            else:
-                conversionList.append(10)
-                x += 10
-           
-        if numeral[i] == 'L':
-            conversionList.append(50) 
-            x +=  50
-    
-        if numeral[i] == 'C':
-            if numeral[i+1] == 'D' or numeral[i+1] == 'M':
-                conversionList.append(-100)
-                x -= 100
-            else:
-                conversionList.append(100)
-                x += 100
-            
-        if numeral[i] == 'D':
-            conversionList.append(500)
-            x += 500
-            
-        if numeral[i] == 'M':
-            conversionList.append(1000)  
-            x += 1000
-    
-
-            
-print(romanNumerals(s))   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
