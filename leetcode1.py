@@ -19,19 +19,29 @@ Solved in Python cause I don't know Jave (yet).
 nums = [2,7,11,15]
 target = 9
 
-
-
-def adding(numList, result):
-    outputList = []
-
-    for i in nums:
-        for j in range(len(nums)-1):
-            if i + nums[j+1] == target:
-                outputList.append(nums.index(i))
-                outputList.append(j+1)
-                return outputList
-
-            
+class Solution(object):
+    def twoSum(self, nums, target):
+        outputList = []
+        
+        pos_count = 0
+        neg_count = 0
+        
+        for i in nums:
+            if i >= 0:
+                pos_count += 1
+        if pos_count == len(nums) and target < 0:
+            return []
        
-print(adding(nums, target))   
+        for i in nums:
+            if i < 0:
+                neg_count += 1
+        if neg_count == len(nums) and target >= 0:
+            return []            
+
+        for i in range(len(nums)-1):
+            for j in range(i+1,len(nums)):
+                if nums[i] + nums[j] == target:
+                    outputList.append(i)
+                    outputList.append(j)
+                    return outputList
             
