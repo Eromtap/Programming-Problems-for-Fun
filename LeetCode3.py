@@ -15,28 +15,41 @@ Solved in Python
 
 '''
 
-s = "abcabcbb"
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
 
-substring_list = []
-
-
-
-def longest_string(string):
-    substring = string[0]
-    for i in range(len(string)):
-        if string[i] in substring:
-            substring_list.append(substring)
-            substring = string[i]
-        else:
-            substring += string[i]
-     
-    longest = ''
-    for i in substring_list:
-        if len(i) > len(longest):
-            longest = i
-     
-    return len(longest)
+        longest = 0
         
-            
-print(longest_string(s))
+        # If len(s) is 1, the answer is 1
+        if len(s) == 1:
+            return 1
+        # If s is empty string, return 0
+        if not s:
+            return 0
+
+
+        # Two pointer approach. i is slow pointer, j is fast pointer
+        for i in range(len(s)):
+
+            for j in range(i+1, len(s)):
+                # if no repeats found after 95 characters
+                # return 95 (since that's as long as it can be without repeats)
+                if j-i == 95:
+                    return 95
+                # Check if fast pointer value is in the substring.
+                # If it is, check if fast pointer index - slow pointer index
+                # is greater than longest substring. If it is, longest = difference
+                if s[j] in s[i:j]:
+                    
+                    if j-i > longest:
+                        longest = j-i
+
+                    break
+                # Last check if the last substring ending on 
+                # the last character is longer than 'longest'
+                if j == len(s)-1:
+                    if j-i+1 > longest:
+                        longest = j-i+1
+    
+        return longest    
         
